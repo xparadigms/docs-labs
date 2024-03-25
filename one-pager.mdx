@@ -1,0 +1,46 @@
+---
+title: 'One-Pager'
+description: 'Overview on "Silk Framework"'
+---
+
+
+### 0. Background
+
+The current user experience with blockchain interaction is not optimal. This will worsen as crypto industry is expected to see hundreds of blockchains and rollups. With the "Silk Framework," we aim to make blockchain interaction more seamless by abstracting the transaction-building process for users.
+
+The keywords for this framework will be “Chain Abstraction” and “Intent”.
+
+### 1. Milestone
+
+1. Roadmap1. NFT Trading - Enhance NFT Trading Experience with Permissionless intent Framework
+    1. Buy NFTs with any token on any chain, anywhere
+    2. Sell NFTs anywhere, with the desired token
+    3. Enable buy on your favorite Services (i.e. NFT marketplace)
+    4. SDK & API Integration
+
+## 2. Protocol Architecture
+
+> Interact with any chain, at anywhere - starting from NFT buying
+
+<Frame>
+  <img src="/images/silk-architecture.png" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+Silk is made up of three main components:
+
+1. Interface Layer: This is the point where users express their intent.
+2. Silk Module: This includes a set of contracts deployed on each network. It consists of settlement modules, where user requests are initiated and resolved, and application modules, where user requests are managed.
+3. Solver Layer: This consists of 3rd party entities like bridges or specialized intermediaries that accomplish the user's intent.
+
+### 2.1 Interface Layer
+
+### 2.2 Silk Modules
+
+1. Settlement Modules:
+    - These wrap up user requests and confirm their execution.
+    - One instance would be verifying that a requested NFT is bought and delivered to the right account.
+2. Application Modules:
+    - These manage cross-chain user requests and trigger events for Solvers.
+    - Typical examples are NFT purchase requests and LP deposit requests.
+
+### 2.3 Solver Layer
