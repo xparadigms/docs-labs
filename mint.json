@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Modular Media",
+  "name": "FP Labs - SILK",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -21,11 +21,6 @@
   },
   "anchors": [
     {
-      "name": "Mintlify Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
       "name": "FP Twitter",
       "icon": "twitter",
       "url": "https://twitter.com/FourPillarsFP"
@@ -39,11 +34,19 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "one-pager"]
+      "pages": ["introduction"]
     },
     {
       "group": "Protocol Architecture",
-      "pages": ["architecture/overview"]
+      "pages": ["architecture/overview", "architecture/tx-lifecycle"]
+    },
+    {
+      "group": "User Guide",
+      "pages": ["user-guide/dev", "user-guide/user"]
+    },
+    {
+      "group": "Support",
+      "pages": ["support/faq"]
     }
   ],
   "footerSocials": {

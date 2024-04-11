@@ -1,0 +1,100 @@
+---
+title: 'Intent Object Lifecycle'
+description: ''
+icon: ''
+---
+
+
+Let's explore the lifecycle of an intent object with the example of bridging a desired token.
+
+## 1. Sign Intent Object
+
+User signs an intent object to bridge a token
+
+```json
+{
+  "function": "bridge",
+  "parameters": [
+    {
+      "name": "depositor",
+      "type": "address"
+    },
+    {
+      "name": "recipient",
+      "type": "address"
+    },
+    {
+      "name": "inputToken",
+      "type": "address"
+    },
+    {
+      "name": "outputToken",
+      "type": "address"
+    },
+    {
+      "name": "inputAmount",
+      "type": "uint256"
+    },
+    {
+      "name": "outputAmount",
+      "type": "uint256"
+    },
+    {
+      "name": "destinationChainId",
+      "type": "uint256"
+    },
+    {
+      "name": "quoteTimestamp",
+      "type": "uint32"
+    },
+    {
+      "name": "fillDeadline",
+      "type": "uint32"
+    },
+    {
+      "name": "exclusivityDeadline",
+      "type": "uint32"
+    },
+    {
+      "name": "message",
+      "type": "bytes"
+    }
+  ]
+}
+```
+
+## 2. Intent Object Event Emitted
+
+The user intent is broadcasted to the solver node and a solver picks up the intent object.
+
+![Untitled](https://4pillars.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fc4d9b6b3-54c0-4b89-bcc1-77ed2113de13%2F50c47f23-a66d-4a22-bae1-e46e74101fb9%2FUntitled.png?table=block&id=84ac837f-ac17-42e1-9313-2a593cccae5f&spaceId=c4d9b6b3-54c0-4b89-bcc1-77ed2113de13&width=1050&userId=&cache=v2)
+
+## 3. Constructor finds the Best Route with SILK API
+
+The constructor in the solver node determines the best route to fulfill the intent object.
+
+```json
+curl "https://silk.xyz/api/suggested-fees?token=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&destinationChainId=10&amount=1000000"
+
+// can compare the general fee with its own asset vault and choose which approach to utilize.                          
+```
+
+## 4. User Escrows Amount
+
+Once a solver node shows an intention to fulfill the request, the user is asked to escrow the input token and a fee to a settlement pool. Then the user escrows the asset to the settlement pool.
+
+![Untitled](https://4pillars.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fc4d9b6b3-54c0-4b89-bcc1-77ed2113de13%2F3a53a846-0856-4ab9-af9c-53ecdc2ab2cc%2FUntitled.png?table=block&id=61dedea4-aee5-4378-8792-2b130b2be676&spaceId=c4d9b6b3-54c0-4b89-bcc1-77ed2113de13&width=1050&userId=&cache=v2)
+
+## 5. Solver Executes
+
+### 5-1. Option1. With Intent Application Module
+
+Solver can go through the pre-determined path in the “Intent Application Module.” The role of the solver would be to execute on behalf of users with their account so that users wouldn’t need to go through complex process like approving tokens, swapping to the desired token in the destination chain, etc.
+
+### 5-2. Option2. Without Intent Application Module
+
+Solver can utilize their asset for position and provide the result to the user. This can be beenficial to the solver since the user payes the additional fee on top of the intent request.
+
+## 6. Solver Delivers the Result
+
+The Solver solves the user request in the "intent object". If the request is fulfilled in another chain, the evidence of the fulfilled intent can be forwarded to the "Settlement Pool" on the source chain, thereby releasing the escrow amount to the Solver.

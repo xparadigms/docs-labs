@@ -1,0 +1,48 @@
+---
+title: '3/3 Intent Solver'
+description: 'The overall strcutrue of Silk Framework'
+icon: ''
+---
+
+
+## Overview
+
+SILK is not a full-stack infrastructure for intent solving. It is more of a marketplace with underlying thrid-party protocols. It allows users and dapps to focus on what they want to get and what they get in return. SILK is trying to abstract the complex interaction and transaction process.
+
+## Architecture
+
+The core operation of SILK is done in three main steps.
+
+1. Understand the user's request.
+2. Find a solution to the request, whether a list of transactions or faster fulfillment.
+3. Solve the request and deliver the result to the user
+
+In SILK, each step is performed by three modules.
+
+1. Intent Settlement Module
+2. Intent Solver Node
+3. Intent Application Module
+
+![Silk Architecture](./images/silk-architecture.png)
+
+### 1. Intent Settlement Module
+
+Its main role is to understand the start and end of the intent lifecycle.
+
+This settlement module has its “intent pool” where it understands operation request (intent object) by the users. For instance, if the user wants a tokenB as an output with tokenA as an input, the user can send the intent object along with the dealine time and the destination wallet. This is done by signing the intent object. Since this requires an input token from the user, the user also needs to escrow the amount to the “settlement pool”, so that once the request is fullfilled, the escrowed token can be retrieved by the solver.
+
+The other operation of settlement module would be to listen to the completion of the intent lifecycle and reward the solver.
+
+### 2. Intent Solver Node
+
+Its main role is to propose the solution to the user requirement (intent object).
+
+Solvers listen to the event emitted from the intent pool and find the best possible way to solve the user request. This can be either a series of transactions or solver’s ability to provide that result with its own asset or position. The purpose of the Intent solver node would be the crucial part to abstract away the complexities of interacting with blockchain applications.
+
+### 3. Intent Application Module
+
+Its main role is to coordinate third-party protocols for the solution.
+
+The interaction between a dapp or a wallet and the blockchain can be complex underneath the surface. The power of composability can make these complex interaction more smooth, and the cost of developing similar infra can be reduced. For example, by using bridge aggreagtor service like lifi, we can abstract away some of complex briding process and interact with blockchain.
+
+This intent application module serves as a plugin marketplace where it provides a transaparent and effective way to solve the user intent.
